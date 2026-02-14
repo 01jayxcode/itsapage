@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine's Puzzle Game 💖</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-pink: #ff4d6d;
+        --deep-rose: #c9184a;
+        --light-pink: #ffb3c1;
+        --glass: rgba(255, 255, 255, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Animated Floating Background */
+      .bg-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .floating-heart {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.4);
+        animation: floatUp 10s linear infinite;
+        font-size: 1.5rem;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(110vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Screen Styling */
+      .screen {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        width: 90%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+        border-radius: 30px;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .screen.active {
+        display: block;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Typography */
+      h1 {
+        font-family: "Dancing Script", cursive;
+        color: #fff;
+        font-size: 4em;
+        margin-bottom: 10px;
+        text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .subtitle {
+        color: #fff;
+        font-size: 1.1em;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      /* Puzzle Elements */
+      .puzzle-container {
+        background: white;
+        padding: 12px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .puzzle-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        gap: 8px;
+      }
+
+      .puzzle-piece {
+        width: 100px;
+        height: 100px;
+        border-radius: 12px;
+        cursor: pointer;
+        background-size: 300px 300px;
+        transition: all 0.2s ease;
+        position: relative;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .puzzle-piece:hover {
+        transform: scale(1.02);
+        filter: brightness(1.1);
+        z-index: 2;
+      }
+
+      .puzzle-piece.empty {
+        background: #f0f0f0 !important;
+        cursor: default;
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .puzzle-number {
+        position: absolute;
+        bottom: 5px;
+        right: 8px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.8em;
+        font-weight: bold;
+        pointer-events: none;
+      }
+
+      /* Buttons */
+      button {
+        background: white;
+        color: var(--deep-rose);
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.1em;
+        font-weight: 700;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        background: #fff0f3;
+      }
+
+      .moves-counter {
+        color: white;
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.1);
+        padding: 8px 20px;
+        border-radius: 20px;
+        display: inline-block;
+      }
+
+      /* Reward Card */
+      .prize-section {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 20px 0;
+        color: var(--deep-rose);
+      }
+
+      .prize {
+        font-size: 1.8em;
+        font-weight: 700;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 400px) {
+        .puzzle-grid {
+          grid-template-columns: repeat(3, 85px);
+          grid-template-rows: repeat(3, 85px);
+        }
+        .puzzle-piece {
+          width: 85px;
+          height: 85px;
+          background-size: 255px 255px;
+        }
+        h1 {
+          font-size: 3em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-elements" id="bgElements"></div>
+
+    <div class="screen active" id="startScreen">
+      <h1>Valentine's</h1>
+
+      <div style="font-size: 3rem; margin-bottom: 10px">💝</div>
+      <p class="subtitle">Solve this puzzle for a special message...</p>
+      <button onclick="initGame()">Unlock Love</button>
+    </div>
+
+    <div class="screen" id="puzzleLevel">
+      <h2 style="font-family: &quot;Dancing Script&quot;; font-size: 2.5rem">
+        Solve it, Sweetie!
+      </h2>
+      <div class="puzzle-container">
+        <div class="puzzle-grid" id="puzzle"></div>
+      </div>
+      <br />
+      <div class="moves-counter">Moves: <span id="moveCount">0</span></div>
+    </div>
+
+    <div class="screen" id="congratsScreen">
+      <div style="font-size: 4rem">🏆</div>
+      <h1>Amazing!</h1>
+      <div class="prize-section">
+        <p
+          style="
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+          "
+        >
+          Your Reward:
+        </p>
+
+        <div class="prize">💋 Unlimited Kisses! 💋</div>
+      </div>
+      <div style="color: white; margin-bottom: 20px">
+        Completed in
+        <span id="finalMoves" style="font-weight: bold">0</span> moves!
+      </div>
+      <button onclick="goNext()">See My Message 💖</button>
+    </div>
+    <script>
+      // Create background hearts
+      function createBG() {
+        const bg = document.getElementById("bgElements");
+        for (let i = 0; i < 15; i++) {
+          const heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.innerHTML = ["💖", "💝", "💕", "💗"][
+            Math.floor(Math.random() * 4)
+          ];
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDelay = Math.random() * 10 + "s";
+          heart.style.fontSize = Math.random() * 1.5 + 1 + "rem";
+          bg.appendChild(heart);
+        }
+      }
+      createBG();
+
+      // Using the local path directly
+      const imageUrl = "det.jpg";
+
+      let puzzleState = [];
+      let emptyIndex = 8;
+      let moveCount = 0;
+
+      // Simplified: No more canvas slicing!
+      async function initGame() {
+        showScreen("puzzleLevel");
+        createPuzzle();
+      }
+
+      function createPuzzle() {
+        const grid = document.getElementById("puzzle");
+        grid.innerHTML = "";
+        moveCount = 0;
+        document.getElementById("moveCount").textContent = moveCount;
+
+        // 0-7 are pieces, 8 is the empty slot
+        puzzleState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        shufflePuzzle();
+
+        for (let i = 0; i < 9; i++) {
+          const piece = document.createElement("div");
+          piece.className = "puzzle-piece";
+
+          if (puzzleState[i] === 8) {
+            piece.classList.add("empty");
+            emptyIndex = i;
+          } else {
+            const targetPiece = puzzleState[i];
+            const row = Math.floor(targetPiece / 3);
+            const col = targetPiece % 3;
+
+            piece.style.backgroundImage = `url('${imageUrl}')`;
+            piece.style.backgroundSize = "300px 300px"; // Crucial for local images
+            piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
+
+            const lbl = document.createElement("span");
+            lbl.className = "puzzle-number";
+            lbl.textContent = targetPiece + 1;
+            piece.appendChild(lbl);
+          }
+          piece.addEventListener("click", () => movePiece(i));
+          grid.appendChild(piece);
+        }
+      }
+
+      function shufflePuzzle() {
+        for (let i = 0; i < 150; i++) {
+          const moves = getValidMoves();
+          const move = moves[Math.floor(Math.random() * moves.length)];
+          [puzzleState[emptyIndex], puzzleState[move]] = [
+            puzzleState[move],
+            puzzleState[emptyIndex],
+          ];
+          emptyIndex = move;
+        }
+      }
+
+      function getValidMoves() {
+        const moves = [];
+        const row = Math.floor(emptyIndex / 3),
+          col = emptyIndex % 3;
+        if (row > 0) moves.push(emptyIndex - 3);
+        if (row < 2) moves.push(emptyIndex + 3);
+        if (col > 0) moves.push(emptyIndex - 1);
+        if (col < 2) moves.push(emptyIndex + 1);
+        return moves;
+      }
+
+      function movePiece(index) {
+        if (getValidMoves().includes(index)) {
+          [puzzleState[emptyIndex], puzzleState[index]] = [
+            puzzleState[index],
+            puzzleState[emptyIndex],
+          ];
+          emptyIndex = index;
+          moveCount++;
+          document.getElementById("moveCount").textContent = moveCount;
+          updatePuzzle();
+
+          if (isPuzzleSolved()) {
+            setTimeout(() => {
+              document.getElementById("finalMoves").textContent = moveCount;
+              showScreen("congratsScreen");
+            }, 500);
+          }
+        }
+      }
+
+      function updatePuzzle() {
+        const pieces = document.getElementById("puzzle").children;
+        for (let i = 0; i < 9; i++) {
+          const p = pieces[i];
+          p.className = "puzzle-piece";
+          p.innerHTML = "";
+          p.style.backgroundImage = "";
+
+          if (puzzleState[i] === 8) {
+            p.classList.add("empty");
+          } else {
+            const targetPiece = puzzleState[i];
+            const row = Math.floor(targetPiece / 3);
+            const col = targetPiece % 3;
+            p.style.backgroundImage = `url('${imageUrl}')`;
+            p.style.backgroundSize = "300px 300px";
+            p.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
+
+            const lbl = document.createElement("span");
+            lbl.className = "puzzle-number";
+            lbl.textContent = targetPiece + 1;
+            p.appendChild(lbl);
+          }
+        }
+      }
+
+      function isPuzzleSolved() {
+        return puzzleState.every((val, i) => val === i);
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      function goNext() {
+        window.location.href = "credits.html";
+      }
+    </script>
+  </body>
+</html>

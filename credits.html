@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Love You in Every Language 💖</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", "Times New Roman", serif;
+        /* Updated Background */
+        background: url("beach.jpg") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Darkens the beach image slightly so text pops */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(
+          0,
+          0,
+          0,
+          0.3
+        ); /* Adjust 0.3 to make it darker or lighter */
+        z-index: -1;
+      }
+
+      /* Animated background hearts */
+      .heart-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .floating-heart {
+        position: absolute;
+        font-size: 2em;
+        opacity: 0.15;
+        animation: floatUp 20s infinite;
+      }
+
+      .floating-heart:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .floating-heart:nth-child(2) {
+        left: 25%;
+        animation-delay: 2s;
+        font-size: 1.5em;
+      }
+      .floating-heart:nth-child(3) {
+        left: 40%;
+        animation-delay: 4s;
+      }
+      .floating-heart:nth-child(4) {
+        left: 55%;
+        animation-delay: 6s;
+        font-size: 1.8em;
+      }
+      .floating-heart:nth-child(5) {
+        left: 70%;
+        animation-delay: 8s;
+      }
+      .floating-heart:nth-child(6) {
+        left: 85%;
+        animation-delay: 10s;
+        font-size: 1.6em;
+      }
+      .floating-heart:nth-child(7) {
+        left: 15%;
+        animation-delay: 12s;
+      }
+      .floating-heart:nth-child(8) {
+        left: 60%;
+        animation-delay: 14s;
+        font-size: 1.7em;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.15;
+        }
+        90% {
+          opacity: 0.15;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Credits container */
+      /* Update these specific sections in your CSS */
+
+      .credits-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        /* Changed from flex-end to flex-start */
+        align-items: flex-start;
+        z-index: 1;
+      }
+
+      .credits {
+        width: 90%;
+        max-width: 800px;
+        text-align: center;
+        /* Reduced time to 30s so you can see it move */
+        animation: scroll-up 30s linear infinite;
+        /* Removed the massive 100vh padding */
+        padding: 20px;
+      }
+
+      @keyframes scroll-up {
+        0% {
+          /* Start at the bottom of the container */
+          transform: translateY(100vh);
+        }
+        100% {
+          /* Move all the way up until the div is hidden */
+          transform: translateY(-100%);
+        }
+      }
+
+      .title {
+        font-size: 3em;
+        color: #fff;
+        text-shadow:
+          0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(255, 107, 157, 0.6);
+        margin-bottom: 60px;
+        font-weight: bold;
+        letter-spacing: 3px;
+      }
+
+      .language-item {
+        margin: 40px 0;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .language-name {
+        font-size: 1.2em;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .love-text {
+        font-size: 2.5em;
+        color: #fff;
+        text-shadow:
+          0 0 15px rgba(255, 255, 255, 0.5),
+          0 0 30px rgba(255, 64, 129, 0.4);
+        font-weight: 400;
+        font-style: italic;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+      }
+
+      .heart-divider {
+        font-size: 2em;
+        margin: 30px 0;
+        opacity: 0.5;
+      }
+
+      .ending {
+        font-size: 2.5em;
+        color: #fff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        margin: 100px 0;
+        font-weight: bold;
+      }
+
+      .subtitle {
+        font-size: 1.5em;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 30px;
+        font-style: italic;
+      }
+
+      /* Pause on hover */
+      .credits-container:hover .credits {
+        animation-play-state: paused;
+      }
+
+      @media (max-width: 600px) {
+        .title {
+          font-size: 2em;
+        }
+
+        .love-text {
+          font-size: 2em;
+        }
+
+        .language-name {
+          font-size: 1em;
+        }
+
+        .ending {
+          font-size: 2em;
+        }
+
+        .subtitle {
+          font-size: 1.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg">
+      <div class="floating-heart">💖</div>
+      <div class="floating-heart">💕</div>
+      <div class="floating-heart">💗</div>
+      <div class="floating-heart">💝</div>
+      <div class="floating-heart">💘</div>
+      <div class="floating-heart">💞</div>
+      <div class="floating-heart">💓</div>
+      <div class="floating-heart">❤️</div>
+    </div>
+
+    <!-- Credits scroll -->
+    <div class="credits-container">
+      <div class="credits">
+        <div class="title">I LOVE YOU</div>
+        <div class="subtitle">In Every Language of the World</div>
+
+        <div class="heart-divider">💖</div>
+
+        <div class="language-item">
+          <div class="language-name">English</div>
+          <div class="love-text">I Love You</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Spanish</div>
+          <div class="love-text">Te Amo</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">French</div>
+          <div class="love-text">Je t'aime</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Italian</div>
+          <div class="love-text">Ti Amo</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Portuguese</div>
+          <div class="love-text">Eu te amo</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">German</div>
+          <div class="love-text">Ich liebe dich</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Dutch</div>
+          <div class="love-text">Ik hou van jou</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Russian</div>
+          <div class="love-text">Я тебя люблю</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Japanese</div>
+          <div class="love-text">愛してる (Aishiteru)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Korean</div>
+          <div class="love-text">사랑해 (Saranghae)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Chinese (Mandarin)</div>
+          <div class="love-text">我爱你 (Wǒ ài nǐ)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Arabic</div>
+          <div class="love-text">أحبك (Uhibbuk)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Hindi</div>
+          <div class="love-text">
+            मैं तुमसे प्यार करता हूँ (Main tumse pyaar karta hoon)
+          </div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Greek</div>
+          <div class="love-text">Σ'αγαπώ (S'agapo)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Hebrew</div>
+          <div class="love-text">אני אוהב אותך (Ani ohev otach)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Turkish</div>
+          <div class="love-text">Seni seviyorum</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Swedish</div>
+          <div class="love-text">Jag älskar dig</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Polish</div>
+          <div class="love-text">Kocham cię</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Romanian</div>
+          <div class="love-text">Te iubesc</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Czech</div>
+          <div class="love-text">Miluji tě</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Finnish</div>
+          <div class="love-text">Minä rakastan sinua</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Hungarian</div>
+          <div class="love-text">Szeretlek</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Thai</div>
+          <div class="love-text">ฉันรักคุณ (Chan rak khun)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Vietnamese</div>
+          <div class="love-text">Anh yêu em</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Indonesian</div>
+          <div class="love-text">Aku cinta kamu</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Swahili</div>
+          <div class="love-text">Nakupenda</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Zulu</div>
+          <div class="love-text">Ngiyakuthanda</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Afrikaans</div>
+          <div class="love-text">Ek het jou lief</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Irish</div>
+          <div class="love-text">Tá grá agam duit</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Welsh</div>
+          <div class="love-text">Rwy'n dy garu di</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Icelandic</div>
+          <div class="love-text">Ég elska þig</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Norwegian</div>
+          <div class="love-text">Jeg elsker deg</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Danish</div>
+          <div class="love-text">Jeg elsker dig</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Filipino (Tagalog)</div>
+          <div class="love-text">Mahal kita</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Malay</div>
+          <div class="love-text">Saya cinta padamu</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Bengali</div>
+          <div class="love-text">
+            আমি তোমায় ভালোবাসি (Ami tomay bhalobashi)
+          </div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Tamil</div>
+          <div class="love-text">
+            நான் உன்னை காதலிக்கிறேன் (Naan unnai kaathalikirean)
+          </div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Urdu</div>
+          <div class="love-text">
+            میں تم سے محبت کرتا ہوں (Main tumse mohabbat karta hoon)
+          </div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Persian (Farsi)</div>
+          <div class="love-text">دوستت دارم (Dooset daram)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Punjabi</div>
+          <div class="love-text">
+            ਮੈਂ ਤੁਹਾਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ (Main tuhanu pyar karda haan)
+          </div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Hawaiian</div>
+          <div class="love-text">Aloha wau iā 'oe</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Esperanto</div>
+          <div class="love-text">Mi amas vin</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Latin</div>
+          <div class="love-text">Te amo</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Albanian</div>
+          <div class="love-text">Të dua</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Bulgarian</div>
+          <div class="love-text">Обичам те (Obicham te)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Croatian</div>
+          <div class="love-text">Volim te</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Serbian</div>
+          <div class="love-text">Волим те (Volim te)</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Slovak</div>
+          <div class="love-text">Ľúbim ťa</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Slovenian</div>
+          <div class="love-text">Ljubim te</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Estonian</div>
+          <div class="love-text">Ma armastan sind</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Latvian</div>
+          <div class="love-text">Es tevi mīlu</div>
+        </div>
+
+        <div class="language-item">
+          <div class="language-name">Lithuanian</div>
+          <div class="love-text">Aš tave myliu</div>
+        </div>
+
+        <div class="heart-divider">💕</div>
+        <div class="heart-divider">💖</div>
+        <div class="heart-divider">💗</div>
+
+        <div class="ending">No Matter the Language...</div>
+        <div class="subtitle">My Love for You is Universal 💖</div>
+
+        <div style="height: 100vh"></div>
+      </div>
+    </div>
+
+    <script>
+      // Optional: Reset animation when it completes
+      const credits = document.querySelector(".credits");
+      credits.addEventListener("animationiteration", () => {
+        console.log("Credits loop restarting...");
+      });
+    </script>
+  </body>
+</html>
